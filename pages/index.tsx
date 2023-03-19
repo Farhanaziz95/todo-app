@@ -21,6 +21,17 @@ const Home: React.FC = () => {
   }, []);
 
   const toast = useToast()
+
+  const parameterToast = (message:string,positions:ToastPosition,stat:UseToastOptions['status'],type:string,closeable:boolean) => {
+    
+    toast({
+      title: message,
+      position: positions,
+      isClosable: closeable,
+      status: stat,
+      variant: type,
+    })
+  };
   const handleDelete = async (id: string) => {
     const response = await fetch(`/api/task/${id}`, {
       method: 'DELETE',
@@ -33,24 +44,19 @@ const Home: React.FC = () => {
     });
     if (response.ok) {
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+      parameterToast(`Task Deleted`,'top-right','success','left-accent',true)
       
+    }else if(!response.ok){
+      parameterToast(`Something Went Wrong with Deleting`,'top-right','error','left-accent',true)
+
     }
   };
 
-  const parameterToast = (message:string,positions:ToastPosition,stat:UseToastOptions['status'],type:string,closeable:boolean) => {
-    
-    toast({
-      title: message,
-      position: positions,
-      isClosable: closeable,
-      status: stat,
-      variant: type,
-    })
-  };
+  
 
   const handleUpdate = async (id: string) => {
     const taskToUpdate = tasks.find((task) => task.id === id);
-    console.log(taskToUpdate)
+    const statusofupdate = !taskToUpdate?.completed
     if (taskToUpdate) {
       const response = await fetch(`/api/task/${id}`, {
         method: 'PUT',
@@ -63,12 +69,22 @@ const Home: React.FC = () => {
         }),
       });
 
-      console.log(response)
       if (response.ok) {
         const updatedTask: Task = await response.json();
         setTasks((prevTasks) =>
           prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
         );
+        if(statusofupdate == true){
+          parameterToast(`Task Marked As Completed`,'top-right','success','left-accent',true)
+
+        }else if(statusofupdate == false) {
+          parameterToast(`Task Marked As InComplete`,'top-right','success','left-accent',true)
+
+        }
+      }
+      else if(!response.ok){
+        parameterToast(`Something Went Wrong with Updating`,'top-right','error','left-accent',true)
+
       }
     }
   };
