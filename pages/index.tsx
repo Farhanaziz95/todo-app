@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import { Box, Button, Center, Container, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Stack, border } from '@chakra-ui/react'
+import { Box, Button, Center, Container, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Stack, ToastOptions, ToastPosition, UseToastOptions, border, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react';
 
 import { FaClipboardCheck } from 'react-icons/fa'
@@ -20,6 +20,7 @@ const Home: React.FC = () => {
     fetchTasks();
   }, []);
 
+  const toast = useToast()
   const handleDelete = async (id: string) => {
     const response = await fetch(`/api/task/${id}`, {
       method: 'DELETE',
@@ -32,7 +33,19 @@ const Home: React.FC = () => {
     });
     if (response.ok) {
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+      
     }
+  };
+
+  const parameterToast = (message:string,positions:ToastPosition,stat:UseToastOptions['status'],type:string,closeable:boolean) => {
+    
+    toast({
+      title: message,
+      position: positions,
+      isClosable: closeable,
+      status: stat,
+      variant: type,
+    })
   };
 
   const handleUpdate = async (id: string) => {
@@ -76,6 +89,12 @@ const Home: React.FC = () => {
     if (response.ok) {
       const task: Task = await response.json();
       setTasks((prevTasks) => [...prevTasks, task]);
+      parameterToast(`Task Successfully Added`,'top-right','success','left-accent',true)
+      
+      setName('');
+    }
+    else if(response.status == 409){
+      parameterToast(`Already Existed Task`,'top-right','error','left-accent',true)
       setName('');
     }
   };
@@ -93,7 +112,7 @@ const Home: React.FC = () => {
 
         <main>
           <Center>
-            <Heading color='purple' py="5" as='h2'>
+            <Heading color='purple' py="5">
               To-Do App
             </Heading>
           </Center>
