@@ -6,11 +6,13 @@ import nextConnect from "next-connect";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
 
-export type Task = {
+export interface Task {
   id: string;
   name: string;
   completed: boolean;
-};
+}
+
+
 
 type Tasks = Task[];
 

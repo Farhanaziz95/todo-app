@@ -7,7 +7,7 @@ import Head from 'next/head';
 import { Task } from '@/pages/api/task';
 import TaskList from '@/components/TaskList';
 
-const Home: React.FC = () => {
+const Home= () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [name, setName] = useState<string>('');
 

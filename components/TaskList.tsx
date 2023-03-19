@@ -16,7 +16,7 @@ import {
   Center,
   IconButton,
   Text,
-  Box
+  Box,
 } from '@chakra-ui/react'
 
 type TaskProps = {
@@ -24,6 +24,12 @@ type TaskProps = {
   handleDelete: (id: string) => Promise<void>;
   handleUpdate: (id: string) => Promise<void>;
 };
+
+interface Props {
+  tasks: Task[];
+  handleUpdate: (id: string) => void;
+  handleDelete: (id: string) => void;
+}
 
 const Task: React.FC<TaskProps> = ({ task, handleDelete, handleUpdate }) => {
   return (
@@ -39,13 +45,9 @@ const Task: React.FC<TaskProps> = ({ task, handleDelete, handleUpdate }) => {
   );
 };
 
-type TaskListProps = {
-  tasks: Task[];
-  handleDelete: (id: string) => Promise<void>;
-  handleUpdate: (id: string) => Promise<void>;
-};
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, handleDelete, handleUpdate }) => {
+
+const TaskList = ({ tasks, handleUpdate, handleDelete }: Props) => {
   const [updatedTasks, setUpdatedTasks] = useState<Task[]>(tasks);
 
   useEffect(() => {
@@ -53,58 +55,60 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, handleDelete, handleUpdate }
   }, [tasks]);
 
   return (
-    <Box>
-      <TableContainer whiteSpace={'normal'}>
-        <Table size='sm' variant='striped' colorScheme='purple'>
-          <Thead>
-            <Tr>
-              <Th><Center> Status </Center></Th>
-              <Th><Center>List</Center></Th>
-              <Th><Center>Action</Center></Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {updatedTasks.map((task) => (
-              <Tr key={task.id}>
-                <Td>
-                  <Center>
-                    <Checkbox size='lg' border='black' colorScheme='purple' isChecked={task.completed}
-                      onChange={() => handleUpdate(task.id)}>
-
-                    </Checkbox>
-                  </Center>
-                </Td>
-                <Td>
-                  <Center>
-                    <Text>
-                      {task.name}
-                    </Text>
-                  </Center>
-                </Td>
-                <Td>
-                  <Center>
-                    <IconButton
-                      onClick={() => handleDelete(task.id)}
-                      colorScheme='purple'
-                      aria-label='Delete Todo'
-                      icon={<FaTrash />}
-                    />
-                  </Center>
-                </Td>
+    <>
+      <Box as='div'>
+        <TableContainer whiteSpace={'normal'}>
+          <Table size='sm' variant='striped' colorScheme='purple'>
+            <Thead>
+              <Tr>
+                <Th><Center> Status </Center></Th>
+                <Th><Center>List</Center></Th>
+                <Th><Center>Action</Center></Th>
               </Tr>
-            ))}
+            </Thead>
+            <Tbody>
+              {updatedTasks.map((task) => (
+                <Tr key={task.id}>
+                  <Td>
+                    <Center>
+                      <Checkbox size='lg' border='black' colorScheme='purple' isChecked={task.completed}
+                        onChange={() => handleUpdate(task.id)}>
 
-          </Tbody>
-          <Tfoot>
-            <Tr>
-              <Th><Center> Status </Center></Th>
-              <Th><Center>List</Center></Th>
-              <Th><Center>Action</Center></Th>
-            </Tr>
-          </Tfoot>
-        </Table>
-      </TableContainer>
-    </Box>
+                      </Checkbox>
+                    </Center>
+                  </Td>
+                  <Td>
+                    <Center>
+                      <Text>
+                        {task.name}
+                      </Text>
+                    </Center>
+                  </Td>
+                  <Td>
+                    <Center>
+                      <IconButton
+                        onClick={() => handleDelete(task.id)}
+                        colorScheme='purple'
+                        aria-label='Delete Todo'
+                        icon={<FaTrash />}
+                      />
+                    </Center>
+                  </Td>
+                </Tr>
+              ))}
+
+            </Tbody>
+            <Tfoot>
+              <Tr>
+                <Th><Center> Status </Center></Th>
+                <Th><Center>List</Center></Th>
+                <Th><Center>Action</Center></Th>
+              </Tr>
+            </Tfoot>
+          </Table>
+        </TableContainer>
+      </Box>
+    </>
   );
 };
 
