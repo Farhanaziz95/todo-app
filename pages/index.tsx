@@ -120,6 +120,7 @@ const Home: React.FC = () => {
       
       'linear(to-b, orange.100, purple.300)',
     ]}>
+      
       <div>
         <Head>
           <title>Todo App</title>

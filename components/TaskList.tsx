@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Task } from '@/pages/api/task';
-import { FaTrash} from 'react-icons/fa'
+import { FaTrash } from 'react-icons/fa'
 import {
   Table,
   Thead,
@@ -13,7 +13,8 @@ import {
   TableContainer,
   Checkbox,
   Center,
-  IconButton
+  IconButton,
+  Text
 } from '@chakra-ui/react'
 
 type TaskProps = {
@@ -51,8 +52,8 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, handleDelete, handleUpdate }
 
   return (
 
-    <TableContainer>
-      <Table variant='striped' colorScheme='purple'>
+    <TableContainer whiteSpace={'normal'}>
+      <Table  size='sm' variant='striped' colorScheme='purple'>
         <Thead>
           <Tr>
             <Th><Center> Status </Center></Th>
@@ -72,11 +73,16 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, handleDelete, handleUpdate }
                 </Center>
               </Td>
               <Td>
-                <Center>{task.name}</Center></Td>
+                <Center>
+                  <Text>
+                    {task.name}
+                  </Text>
+                </Center>
+              </Td>
               <Td>
                 <Center>
                   <IconButton
-                  onClick={() => handleDelete(task.id)}
+                    onClick={() => handleDelete(task.id)}
                     colorScheme='purple'
                     aria-label='Delete Todo'
                     icon={<FaTrash />}
