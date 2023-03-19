@@ -116,7 +116,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <Box w="100%" h='620px' bgGradient={[
+    <Box w="100%"  bgGradient={[
       
       'linear(to-b, orange.100, purple.300)',
     ]}>

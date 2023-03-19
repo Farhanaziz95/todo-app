@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useState } from 'react';
 import { Task } from '@/pages/api/task';
 import { FaTrash } from 'react-icons/fa'
