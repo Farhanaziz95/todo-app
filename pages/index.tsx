@@ -1,5 +1,5 @@
 /* eslint-disable react/no-children-prop */
-import { Box, Button, Center, Container, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Stack, ToastOptions, ToastPosition, UseToastOptions, border, useToast } from '@chakra-ui/react'
+import { Box, Button, Center, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Stack, ToastPosition, UseToastOptions, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react';
 
 import { FaClipboardCheck } from 'react-icons/fa'

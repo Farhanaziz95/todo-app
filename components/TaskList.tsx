@@ -1,4 +1,4 @@
-"use client"
+
 
 import React, { useEffect, useState } from 'react';
 import { Task } from '@/pages/api/task';
@@ -11,12 +11,12 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Checkbox,
   Center,
   IconButton,
-  Text
+  Text,
+  Box
 } from '@chakra-ui/react'
 
 type TaskProps = {
@@ -53,58 +53,58 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, handleDelete, handleUpdate }
   }, [tasks]);
 
   return (
-
-    <TableContainer whiteSpace={'normal'}>
-      <Table  size='sm' variant='striped' colorScheme='purple'>
-        <Thead>
-          <Tr>
-            <Th><Center> Status </Center></Th>
-            <Th><Center>List</Center></Th>
-            <Th><Center>Action</Center></Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {updatedTasks.map((task) => (
-            <Tr key={task.id}>
-              <Td>
-                <Center>
-                  <Checkbox size='lg' border='black' colorScheme='purple' isChecked={task.completed}
-                    onChange={() => handleUpdate(task.id)}>
-
-                  </Checkbox>
-                </Center>
-              </Td>
-              <Td>
-                <Center>
-                  <Text>
-                    {task.name}
-                  </Text>
-                </Center>
-              </Td>
-              <Td>
-                <Center>
-                  <IconButton
-                    onClick={() => handleDelete(task.id)}
-                    colorScheme='purple'
-                    aria-label='Delete Todo'
-                    icon={<FaTrash />}
-                  />
-                </Center>
-              </Td>
+    <Box>
+      <TableContainer whiteSpace={'normal'}>
+        <Table size='sm' variant='striped' colorScheme='purple'>
+          <Thead>
+            <Tr>
+              <Th><Center> Status </Center></Th>
+              <Th><Center>List</Center></Th>
+              <Th><Center>Action</Center></Th>
             </Tr>
-          ))}
+          </Thead>
+          <Tbody>
+            {updatedTasks.map((task) => (
+              <Tr key={task.id}>
+                <Td>
+                  <Center>
+                    <Checkbox size='lg' border='black' colorScheme='purple' isChecked={task.completed}
+                      onChange={() => handleUpdate(task.id)}>
 
-        </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th><Center> Status </Center></Th>
-            <Th><Center>List</Center></Th>
-            <Th><Center>Action</Center></Th>
-          </Tr>
-        </Tfoot>
-      </Table>
-    </TableContainer>
+                    </Checkbox>
+                  </Center>
+                </Td>
+                <Td>
+                  <Center>
+                    <Text>
+                      {task.name}
+                    </Text>
+                  </Center>
+                </Td>
+                <Td>
+                  <Center>
+                    <IconButton
+                      onClick={() => handleDelete(task.id)}
+                      colorScheme='purple'
+                      aria-label='Delete Todo'
+                      icon={<FaTrash />}
+                    />
+                  </Center>
+                </Td>
+              </Tr>
+            ))}
 
+          </Tbody>
+          <Tfoot>
+            <Tr>
+              <Th><Center> Status </Center></Th>
+              <Th><Center>List</Center></Th>
+              <Th><Center>Action</Center></Th>
+            </Tr>
+          </Tfoot>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 };
 
