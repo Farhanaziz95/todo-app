@@ -1,21 +1,12 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import handler, { readTasksFile, writeTasksFile } from "..";
 
-import fs from "fs";
 import middleware from "@/middlewares/middlewares";
-import nextConnect from "next-connect";
-import path from "path";
-import { v4 as uuidv4 } from "uuid";
 
 export type Task = {
   id: string;
   name: string;
   completed: boolean;
 };
-
-type Tasks = Task[];
-
-const tasksFilePath = path.join(process.cwd(), "tasks.json");
 
 handler.use(middleware);
 
