@@ -87,7 +87,7 @@ handler.put((req, res) => {
   }
 });
 
-handler.post((req, res) => {
+handler.delete((req, res) => {
   // DELETE operation
   const { id } = req.body;
   const tasks = readTasksFile();

@@ -28,6 +28,7 @@ const Home: React.FC = () => {
 
   const handleUpdate = async (id: string) => {
     const taskToUpdate = tasks.find((task) => task.id === id);
+    console.log(taskToUpdate)
     if (taskToUpdate) {
       const response = await fetch(`/api/task/${id}`, {
         method: 'PUT',
