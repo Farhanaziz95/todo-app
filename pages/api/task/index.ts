@@ -42,6 +42,8 @@ handler.use(middleware);
 
 handler.get((req, res) => {
   // READ operation
+  var useless = req;
+  console.log(useless)
   const tasks = readTasksFile();
   res.status(200).json(tasks);
 });
