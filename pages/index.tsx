@@ -1,5 +1,8 @@
+/* eslint-disable react/no-children-prop */
+import { Box, Button, Center, Container, Heading, Input, InputGroup, InputLeftElement, InputRightElement, Stack, border } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react';
 
+import { FaClipboardCheck } from 'react-icons/fa'
 import Head from 'next/head';
 import { Task } from '@/pages/api/task';
 import TaskList from '@/components/TaskList';
@@ -78,23 +81,41 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div>
-      <Head>
-        <title>Todo App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Box w="100%" h='620px' bgGradient={[
+      
+      'linear(to-b, orange.100, purple.300)',
+    ]}>
+      <div>
+        <Head>
+          <title>Todo App</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <main>
-        <h1>Todo App</h1>
+        <main>
+          <Center>
+            <Heading color='purple' py="5" as='h2'>
+              To-Do App
+            </Heading>
+          </Center>
+          <form onSubmit={handleSubmit}>
+            <Stack py={5} spacing={4}>
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents='none'
+                  children={<FaClipboardCheck color='purple' opacity="0.2" />}
+                />
+                <Input borderColor='black' focusBorderColor='purple.400' type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                <InputRightElement w="20" children={<Button size='md' type='submit' colorScheme='purple' variant='outline'>
+                  Button
+                </Button>} />
+              </InputGroup>
+            </Stack>
+          </form>
 
-        <form onSubmit={handleSubmit}>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-          <button type="submit">Add Task</button>
-        </form>
-
-        <TaskList tasks={tasks} handleDelete={handleDelete} handleUpdate={handleUpdate} />
-      </main>
-    </div>
+          <TaskList tasks={tasks} handleDelete={handleDelete} handleUpdate={handleUpdate} />
+        </main>
+      </div>
+    </Box>
   );
 };
 

@@ -1,5 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Task } from '@/pages/api/task';
+import { FaTrash} from 'react-icons/fa'
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+  Checkbox,
+  Center,
+  IconButton
+} from '@chakra-ui/react'
 
 type TaskProps = {
   task: Task;
@@ -35,19 +50,53 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, handleDelete, handleUpdate }
   }, [tasks]);
 
   return (
-    <ul>
-      {updatedTasks.map((task) => (
-        <li key={task.id}>
-          <input
-            type="checkbox"
-            checked={task.completed}
-            onChange={() => handleUpdate(task.id)}
-          />
-          <span>{task.name}</span>
-          <button onClick={() => handleDelete(task.id)}>Delete</button>
-        </li>
-      ))}
-    </ul>
+
+    <TableContainer>
+      <Table variant='striped' colorScheme='purple'>
+        <Thead>
+          <Tr>
+            <Th><Center> Status </Center></Th>
+            <Th><Center>List</Center></Th>
+            <Th><Center>Action</Center></Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {updatedTasks.map((task) => (
+            <Tr key={task.id}>
+              <Td>
+                <Center>
+                  <Checkbox size='lg' border='black' colorScheme='purple' isChecked={task.completed}
+                    onChange={() => handleUpdate(task.id)}>
+
+                  </Checkbox>
+                </Center>
+              </Td>
+              <Td>
+                <Center>{task.name}</Center></Td>
+              <Td>
+                <Center>
+                  <IconButton
+                  onClick={() => handleDelete(task.id)}
+                    colorScheme='purple'
+                    aria-label='Delete Todo'
+                    icon={<FaTrash />}
+                  />
+                </Center>
+              </Td>
+            </Tr>
+          ))}
+
+        </Tbody>
+        <Tfoot>
+          <Tr>
+            <Th><Center> Status </Center></Th>
+            <Th><Center>List</Center></Th>
+            <Th><Center>Action</Center></Th>
+          </Tr>
+        </Tfoot>
+      </Table>
+    </TableContainer>
+
   );
 };
 
