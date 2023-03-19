@@ -112,6 +112,9 @@ const Home= () => {
     else if(response.status == 409){
       parameterToast(`Already Existed Task`,'top-right','error','left-accent',true)
       setName('');
+    }else if(response.status == 408){
+      parameterToast(`Can not send empty Task`,'top-right','error','left-accent',true)
+      
     }
   };
 

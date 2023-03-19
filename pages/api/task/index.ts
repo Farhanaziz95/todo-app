@@ -55,6 +55,8 @@ handler.post((req, res) => {
   const existingTask = tasks.find((task) => task.name === name);
   if (existingTask) {
     res.status(409).json({ message: "Task already exists" });
+  } else if (name === "") {
+    res.status(408).json({ message: "Task already exists" });
   } else {
     const newTask: Task = {
       id: uuidv4(),
