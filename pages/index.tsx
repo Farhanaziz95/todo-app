@@ -20,6 +20,12 @@ const Home: React.FC = () => {
   const handleDelete = async (id: string) => {
     const response = await fetch(`/api/task/${id}`, {
       method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: id
+      })
     });
     if (response.ok) {
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
@@ -40,6 +46,8 @@ const Home: React.FC = () => {
           completed: !taskToUpdate.completed,
         }),
       });
+
+      console.log(response)
       if (response.ok) {
         const updatedTask: Task = await response.json();
         setTasks((prevTasks) =>

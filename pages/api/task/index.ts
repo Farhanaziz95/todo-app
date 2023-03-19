@@ -26,7 +26,7 @@ export const readTasksFile = (): Tasks => {
   }
 };
 
-const writeTasksFile = (tasks: Tasks): void => {
+export const writeTasksFile = (tasks: Tasks): void => {
   try {
     fs.writeFileSync(tasksFilePath, JSON.stringify(tasks));
   } catch (err) {
@@ -66,8 +66,9 @@ handler.post((req, res) => {
 handler.put((req, res) => {
   // UPDATE operation
   const { id, name, completed } = req.body;
+  console.log(req.body)
   const tasks = readTasksFile();
-  const index = tasks.findIndex((task) => task.id === id);
+  const index = tasks.findIndex((task) => task.id as string === id as string);
   if (index !== -1) {
     const existingTask = tasks.find((task) => task.name === name && task.id !== id);
     if (existingTask) {
